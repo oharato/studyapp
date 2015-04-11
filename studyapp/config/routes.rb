@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  root to: 'quizzes#index'
   resources :quizzes
 
   # The priority is based upon order of creation: first created -> highest priority.

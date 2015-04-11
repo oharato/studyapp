@@ -2,6 +2,9 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_quiz_path,
+            :class => 'btn btn-primary' %>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -15,12 +18,12 @@
     </tr>
   </thead>
   <tbody>
-    <% @quizzes.each do |quiz| %>
+    <% @quizzes.order('id desc').each do |quiz| %>
       <tr>
         <td><%= link_to quiz.id, quiz_path(quiz) %></td>
-        <td><%= simple_format quiz.question.gsub(/ /, "&nbsp;") %></td>
-        <td><%= simple_format quiz.answer.gsub(/ /, "&nbsp;") %></td>
-        <td><%= quiz.etc %></td>
+        <td><%= markdown quiz.question %></td>
+        <td><%= markdown quiz.answer %></td>
+        <td><%= markdown quiz.etc %></td>
         <td><%= quiz.tag %></td>
         <td><%=l quiz.created_at %></td>
         <td>
@@ -37,6 +40,3 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_quiz_path,
-            :class => 'btn btn-primary' %>

@@ -7,8 +7,31 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<%= nav_bar fixed: :top, brand: "QuizApp", responsive: true do %>
+    <%= menu_group do %>
+        <%= menu_item "Home", root_path %>
+        <%= menu_divider %>
+        <%= drop_down "Products" do %>
+            <%= menu_item "Things you can't afford", 'google.com' %>
+            <%= menu_item "Things that won't suit you anyway", 'google.com' %>
+            <%= menu_item "Things you're not even cool enough to buy anyway", 'google.com' %>
+        <% end %>
+        <%= menu_item "About Us", 'google.com' %>
+        <%= menu_item "Contact", 'google.com' %>
+    <% end %>
+    <%= menu_group pull: :right do %>
+    <% end %>
+<% end %>
+<div class="container">
+  <div class="row">
+    <div class="span9"><%= yield %></div>
+    <div class="span3">
+      <h2>About Us</h2>
+      hogehoge
+    </div>
+  </div>
+</div>
 
-<%= yield %>
 
 </body>
 </html>

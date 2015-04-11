@@ -5,11 +5,11 @@
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:question) %>:</strong></dt>
-  <dd><%= @quiz.question %></dd>
+  <dd><%= markdown @quiz.question %></dd>
   <dt><strong><%= model_class.human_attribute_name(:answer) %>:</strong></dt>
-  <dd><%= @quiz.answer %></dd>
+  <dd><%= markdown @quiz.answer %></dd>
   <dt><strong><%= model_class.human_attribute_name(:etc) %>:</strong></dt>
-  <dd><%= @quiz.etc %></dd>
+  <dd><%= markdown @quiz.etc %></dd>
   <dt><strong><%= model_class.human_attribute_name(:tag) %>:</strong></dt>
   <dd><%= @quiz.tag %></dd>
 </dl>
