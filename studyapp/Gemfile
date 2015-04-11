@@ -41,3 +41,5 @@ gem 'spring',        group: :development
 gem "twitter-bootstrap-rails"
 gem 'redcarpet'
 gem 'coderay'
+gem 'devise'
+gem 'omniauth-twitter'
