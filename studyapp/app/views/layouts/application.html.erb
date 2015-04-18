@@ -11,36 +11,27 @@
     <%= menu_group do %>
         <%= menu_item "Home", root_path %>
         <%= menu_divider %>
-        <%= drop_down "Products" do %>
-            <%= menu_item "Things you can't afford", 'google.com' %>
-            <%= menu_item "Things that won't suit you anyway", 'google.com' %>
-            <%= menu_item "Things you're not even cool enough to buy anyway", 'google.com' %>
+        <%= drop_down "Quiz" do %>
+            <%= menu_item "Quiz List", quizzes_path %>
         <% end %>
         <%= menu_item "About Us", 'google.com' %>
-        <%= menu_item "Contact", 'google.com' %>
+        <% if user_signed_in? %>
+          <%= menu_item "Sign out", destroy_user_session_path %>
+        <% else %>
+          <%= menu_item "Sign in with Twitter", user_omniauth_authorize_path(:twitter) %>
+        <% end %>
     <% end %>
     <%= menu_group pull: :right do %>
     <% end %>
 <% end %>
 
 <div class="container">
+  <%= content_tag :p, notice, class: :notice if notice %>
+  <%= content_tag :p, alert, class: :alert if alert %>
   <div class="row">
-    <div class="span9"><%= yield %></div>
-    <div class="span3">
-      <h2>About Us</h2>
-      hogehoge
-    </div>
+    <%= yield %>
   </div>
 </div>
-
-<% if user_signed_in? %>
-    <%= link_to "Sign out", destroy_user_session_path %>
-<% else %>
-    <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter) %>
-<% end %>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-
 
 </body>
 </html>

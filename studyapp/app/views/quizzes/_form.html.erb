@@ -37,11 +37,17 @@
     <%= error_span(@quiz[:etc]) %>
   </div>
   <div class="control-group">
-    <%= f.label :tag, :class => 'control-label' %>
+    <%= f.label :tag_list, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :tag, :class => 'form-control' %>
+      <%= text_field_tag 'quiz[tag_list]', @quiz.tag_list.join(','), "data-role" => "tagsinput"  %>
+      <span class="most_used_tags">
+      よく使われているタグ：
+      <% ActsAsTaggableOn::Tag.most_used(10).each do |t| %>
+        <span class="tag label label-info"><%= t.name %></span>
+      <% end %>
+      </span>
     </div>
-    <%= error_span(@quiz[:tag]) %>
+    <%= error_span(@quiz[:tag_list]) %>
   </div>
 
 

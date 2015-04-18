@@ -11,7 +11,11 @@
   <dt><strong><%= model_class.human_attribute_name(:etc) %>:</strong></dt>
   <dd><%= markdown @quiz.etc %></dd>
   <dt><strong><%= model_class.human_attribute_name(:tag) %>:</strong></dt>
-  <dd><%= @quiz.tag %></dd>
+  <dd>
+    <% @quiz.tag_list.each do |tag| %>
+    <span class="label label-primary"><%= tag %></span>
+    <% end %>
+  </dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),

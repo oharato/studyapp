@@ -24,7 +24,11 @@
         <td><%= markdown quiz.question %></td>
         <td><%= markdown quiz.answer %></td>
         <td><%= markdown quiz.etc %></td>
-        <td><%= quiz.tag %></td>
+        <td>
+          <% quiz.tag_list.each do |tag| %>
+          <span class="label label-primary"><%= tag %></span>
+          <% end %>
+        </td>
         <td><%=l quiz.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
