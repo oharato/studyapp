@@ -40,19 +40,19 @@
     <%= f.label :tag_list, :class => 'control-label' %>
     <div class="controls">
       <%= text_field_tag 'quiz[tag_list]', @quiz.tag_list.join(','), "data-role" => "tagsinput"  %>
-      <span class="most_used_tags">
-      よく使われているタグ：
-      <% ActsAsTaggableOn::Tag.most_used(10).each do |t| %>
-        <span class="tag label label-info"><%= t.name %></span>
-      <% end %>
-      </span>
     </div>
+    <p class="most_used_tags">
+    よく使われているタグ：
+    <% ActsAsTaggableOn::Tag.most_used(10).each do |t| %>
+      <span class="tag label label-info"><%= t.name %></span>
+    <% end %>
+    </p>
     <%= error_span(@quiz[:tag_list]) %>
   </div>
 
-
+  <p class="quiz_actions">
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
             quizzes_path, :class => 'btn btn-default' %>
-
+  </p>
 <% end %>

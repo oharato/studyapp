@@ -6,39 +6,21 @@
   =require twitter-bootstrap-static/fontawesome
   */
   
-.row {
-  margin-top: 60px;
+.page-header {
+  margin: 0;
 }
-.pre {
-  max-width: 10em;
-}
-table table td{
-  padding: 5px;
-  word-break: break-all;
-}
-page-header {
-  margin: auto;
-}
-/*pre {*/
-  /* Mozilla */
-/*  white-space: -moz-pre-wrap;*/
-  /* Opera 4-6 */
-/*  white-space: -pre-wrap;*/
-  /* Opera 7 */
-/*  white-space: -o-pre-wrap;*/
-  /* CSS3 */
-/*  white-space: pre-wrap;*/
-  /* IE 5.5+ */
-/*  word-wrap: break-word;*/
-/*}*/
 pre {
-  max-width: 40em;
+  max-width: 50em;
   overflow: auto;
   padding-bottom: 10px;
+  font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
 }
 .btn {
   margin: 5px;
 }
 a.btn-primary:visited{
   color: white;
+}
+.container-fluid {
+  margin: 60px 10px 0;
 }

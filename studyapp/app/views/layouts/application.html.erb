@@ -5,16 +5,13 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-</head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"></head>
 <body>
 <%= nav_bar fixed: :top, brand: "QuizApp", responsive: true do %>
     <%= menu_group do %>
         <%= menu_item "Home", root_path %>
-        <%= menu_divider %>
-        <%= drop_down "Quiz" do %>
-            <%= menu_item "Quiz List", quizzes_path %>
-        <% end %>
-        <%= menu_item "About Us", 'google.com' %>
+        <%= menu_item "Quiz List", quizzes_path %>
+        <%= menu_item "About", about_path %>
         <% if user_signed_in? %>
           <%= menu_item "Sign out", destroy_user_session_path %>
         <% else %>
@@ -25,13 +22,13 @@
     <% end %>
 <% end %>
 
-<div class="container">
-  <%= content_tag :p, notice, class: :notice if notice %>
-  <%= content_tag :p, alert, class: :alert if alert %>
+<div class="container-fluid">
+  <% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: "#{key}") %>
+  <% end %>
   <div class="row">
     <%= yield %>
   </div>
 </div>
-
 </body>
 </html>

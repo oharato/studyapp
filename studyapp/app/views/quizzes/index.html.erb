@@ -1,46 +1,50 @@
 <%- model_class = Quiz -%>
-<div class="page-header">
+<div>
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
+<p class="quiz_new">
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_quiz_path,
             :class => 'btn btn-primary' %>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:question) %></th>
-      <th><%= model_class.human_attribute_name(:answer) %></th>
-      <th><%= model_class.human_attribute_name(:etc) %></th>
-      <th><%= model_class.human_attribute_name(:tag) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @quizzes.order('id desc').each do |quiz| %>
-      <tr>
-        <td><%= link_to quiz.id, quiz_path(quiz) %></td>
-        <td><%= markdown quiz.question %></td>
-        <td><%= markdown quiz.answer %></td>
-        <td><%= markdown quiz.etc %></td>
-        <td>
-          <% quiz.tag_list.each do |tag| %>
-          <span class="label label-primary"><%= tag %></span>
-          <% end %>
-        </td>
-        <td><%=l quiz.created_at %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_quiz_path(quiz), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      quiz_path(quiz),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+</p>
+<% @quizzes.order('id desc').each do |quiz| %>
+<div>
+  <div class="quiz_header">
+    <ul class="main-nav">
+      <li>No.<%= quiz.id %></li>
+      <li>
+        tags:
+        <% quiz.tag_list.each do |tag| %>
+        <span class="label label-info"><%= tag %></span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                    edit_quiz_path(quiz), :class => 'btn btn-default btn-xs' %>
+        <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                    quiz_path(quiz),
+                    :method => :delete,
+                    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                    :class => 'btn btn-xs btn-danger' %>
+      </li>
+    </ul>
+
+  </div>
+  <div class="main">
+    <section class="col-1">
+      <h2><%= model_class.human_attribute_name(:question) %></h2>
+      <div><%= markdown quiz.question %></div>
+    </section>
+    <section class="col-2">
+      <h2><%= model_class.human_attribute_name(:answer) %></h2>
+      <div><%= markdown quiz.answer %></div>
+    </section>
+    <section class="col-3">
+      <h2><%= model_class.human_attribute_name(:etc) %></h2>
+      <div><%= markdown quiz.etc %></div>
+    </section>
+  </div>
+</div>
+<hr>
+<% end %>
 

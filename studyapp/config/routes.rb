@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  get 'home/index'
-
-  root 'home#index'
+  get 'home' => 'static_pages#home', as: :home
+  get 'about' => 'static_pages#about', as: :about
+  root 'static_pages#home'
   resources :quizzes
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   devise_scope :user do
