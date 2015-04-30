@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Resque::Server, :at => "/resque"
   get 'home' => 'static_pages#home', as: :home
   get 'about' => 'static_pages#about', as: :about
   root 'static_pages#home'
