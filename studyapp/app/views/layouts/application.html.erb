@@ -12,6 +12,7 @@
         <%= menu_item "Home", root_path %>
         <%= menu_item "Quiz List", quizzes_path %>
         <%= menu_item "About", about_path %>
+        <%= menu_item "Toggle Answer", 'javascript:void(0);', class: :toggle_answer %>
         <% if user_signed_in? %>
           <%= menu_item "Sign out", destroy_user_session_path %>
         <% else %>

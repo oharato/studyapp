@@ -2,7 +2,8 @@
 <div>
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
-<p class="quiz_new">
+<p class="quiz_actions">
+<span class="btn btn-default toggle_answer">答えの表示・非表示</span>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_quiz_path,
             :class => 'btn btn-primary' %>
