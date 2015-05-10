@@ -10,11 +10,20 @@
 <%= nav_bar fixed: :top, brand: "QuizApp", responsive: true do %>
     <%= menu_group do %>
         <%= menu_item "Home", root_path %>
-        <%= menu_item "Quiz List", quizzes_path %>
         <%= menu_item "About", about_path %>
-        <%= menu_item "Toggle Answer", 'javascript:void(0);', class: :toggle_answer %>
         <% if user_signed_in? %>
-          <%= menu_item "Sign out", destroy_user_session_path %>
+          <%= drop_down "Quiz" do %>
+            <%= menu_item "Quiz List", quizzes_path %>
+            <%= menu_item "Toggle Answer", 'javascript:void(0);', class: :toggle_answer %>
+          <% end %>
+          <%= drop_down "Challenge" do %>
+            <%= menu_item "Setup", challenge_results_setup_path %>
+            <%= menu_item "Challenge Results", challenge_results_path %>
+          <% end %>
+          <%= drop_down "User" do %>
+            <%= menu_item "Show User", show_user_path %>
+            <%= menu_item "Sign out", destroy_user_session_path %>
+          <% end %>
         <% else %>
           <%= menu_item "Sign in with Twitter", user_omniauth_authorize_path(:twitter) %>
         <% end %>

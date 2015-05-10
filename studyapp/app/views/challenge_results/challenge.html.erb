@@ -1,0 +1,41 @@
+<%- model_class = Quiz -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:question) %>:</strong></dt>
+  <dd><%= markdown @quiz.question %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:tag) %>:</strong></dt>
+  <dd>
+    <% @quiz.tag_list.each do |tag| %>
+    <span class="label label-info"><%= tag %></span>
+    <% end %>
+  </dd>
+  <dt></dt>
+  <dd style="background:white;">
+    <p>
+      <span class="btn btn-default challenge_answer_show initial_show">show answer</span>
+      <%= link_to '次の問題へ', challenge_results_next_path, :class => 'btn btn-default initial_show'  %>
+      <%= link_to '正解', challenge_results_correct_path(id: @quiz.id), method: :post, :class => 'btn btn-default initial_hide'  %>
+      <%= link_to '不正解', challenge_results_uncorrect_path(id: @quiz.id), method: :post, :class => 'btn btn-default initial_hide'  %>
+    </p>
+  </dd>
+  <div class="challenge_answer initial_hide">
+    <dt><strong><%= model_class.human_attribute_name(:answer) %>:</strong></dt>
+    <dd><%= markdown @quiz.answer %></dd>
+    <dt><strong><%= model_class.human_attribute_name(:etc) %>:</strong></dt>
+    <dd><%= markdown @quiz.etc %></dd>
+  </div>
+</dl>
+<p class="quiz_actions">
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              quizzes_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_quiz_path(@quiz), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              quiz_path(@quiz),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</p>

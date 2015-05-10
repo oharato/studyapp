@@ -1,5 +1,5 @@
 class SampleMailer < ActionMailer::Base
-  # include Resque::Mailer
+  include Resque::Mailer
   default from: ENV['SES_FROM']
 
   def send_mail

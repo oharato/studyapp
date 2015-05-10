@@ -11,23 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150418090956) do
+ActiveRecord::Schema.define(version: 20150510070827) do
 
-  create_table "quizzes", force: true do |t|
-    t.text     "question",   null: false
-    t.text     "answer",     null: false
+  create_table "challenge_results", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "quiz_id"
+    t.boolean  "correct"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "challenge_results", ["quiz_id"], name: "index_challenge_results_on_quiz_id"
+  add_index "challenge_results", ["user_id"], name: "index_challenge_results_on_user_id"
+
+  create_table "quizzes", force: :cascade do |t|
+    t.text     "question",               null: false
+    t.text     "answer",                 null: false
     t.text     "etc"
-    t.string   "tag"
+    t.string   "tag",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "taggings", force: true do |t|
+  create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
-    t.string   "taggable_type"
+    t.string   "taggable_type", limit: 255
     t.integer  "tagger_id"
-    t.string   "tagger_type"
+    t.string   "tagger_type",   limit: 255
     t.string   "context",       limit: 128
     t.datetime "created_at"
   end
@@ -35,18 +46,20 @@ ActiveRecord::Schema.define(version: 20150418090956) do
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
   add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
 
-  create_table "tags", force: true do |t|
-    t.string  "name"
-    t.integer "taggings_count", default: 0
+  create_table "tags", force: :cascade do |t|
+    t.string  "name",           limit: 255
+    t.integer "taggings_count",             default: 0
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true
 
-  create_table "users", force: true do |t|
-    t.string   "provider"
-    t.string   "uid"
+  create_table "users", force: :cascade do |t|
+    t.string   "provider",   limit: 255
+    t.string   "uid",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "nickname"
+    t.string   "email"
   end
 
   add_index "users", ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true

@@ -5,4 +5,8 @@ $(function() {
   $('.toggle_answer').click(function() {
     $('section.col-2, section.col-3').toggle();
   })
+  $('.challenge_answer_show').click(function() {
+    $('.initial_show').hide();
+    $('.initial_hide').show();
+  })
 });
