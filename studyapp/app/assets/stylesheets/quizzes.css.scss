@@ -45,6 +45,10 @@
 .main div {
   margin-top: 10px;
 }
+.main th, .main td, dd th, dd td {
+  border: 1px solid #333;
+  padding: 3px;
+}
 @media screen and (max-width: 700px) {
   .main {
     flex-direction: column;
