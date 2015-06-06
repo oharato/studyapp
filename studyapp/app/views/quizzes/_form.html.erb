@@ -43,7 +43,7 @@
     </div>
     <p class="most_used_tags">
     よく使われているタグ：
-    <% ActsAsTaggableOn::Tag.most_used(10).each do |t| %>
+    <% ActsAsTaggableOn::Tag.most_used(20).each do |t| %>
       <span class="tag label label-info"><%= t.name %></span>
     <% end %>
     </p>
