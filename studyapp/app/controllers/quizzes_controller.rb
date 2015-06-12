@@ -4,7 +4,10 @@ class QuizzesController < ApplicationController
   # GET /quizzes
   # GET /quizzes.json
   def index
-    @quizzes = Quiz.page(params[:page]).per(10)
+    tags = params[:tags].try(:split, ',')
+    @quizzes = Quiz.search(params[:keyword])
+      .tap{|x| break x.tagged_with(tags) if tags.present? }
+      .page(params[:page]).per(20)
   end
 
   # GET /quizzes/1

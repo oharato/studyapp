@@ -9,6 +9,23 @@
             new_quiz_path,
             :class => 'btn btn-primary' %>
 </p>
+<%= form_tag quizzes_path, method: :get do %>
+  <p>キーワード：<%= search_field_tag :keyword, params[:keyword], class: "form-control" %></p>
+  <p>
+    タグ：<%= text_field_tag :tags, params[:tags], id: "quiz_tag_list", class: "form-control" %>
+    <button type="button" class="btn btn-default tags_remove_all">
+      <span class="fa fa-times"></span>
+    </button>
+  </p>
+  <p class="most_used_tags">
+  よく使われているタグ：
+  <% ActsAsTaggableOn::Tag.most_used(20).each do |t| %>
+    <span class="tag label label-info"><%= t.name %></span>
+  <% end %>
+  </p>
+  <p><%= submit_tag 'search', name: nil, class: "btn btn-default" %></p>
+<% end %>
+
 <% @quizzes.order('id desc').each do |quiz| %>
 <div>
   <div class="quiz_header">
