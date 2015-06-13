@@ -18,6 +18,7 @@ class ChallengeResultsController < ApplicationController
   
   def next
     target_quiz_ids = @quizzes.ids
+    redirect_to challenge_results_setup_path and return if target_quiz_ids.blank?
     current_quiz_index = target_quiz_ids.index(params[:id].try(:to_i))
     next_quiz_id =  
       if current_quiz_index.nil? || current_quiz_index+1 == target_quiz_ids.size
