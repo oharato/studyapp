@@ -5,20 +5,23 @@
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:question) %>:</strong></dt>
-  <dd><%= markdown @quiz.question %></dd>
+  <dd><div><%= markdown @quiz.question %></div></dd>
   <dt><strong><%= model_class.human_attribute_name(:tag) %>:</strong></dt>
   <dd>
+    <div>
     <% @quiz.tag_list.each do |tag| %>
     <span class="label label-info"><%= tag %></span>
     <% end %>
+    </div>
   </dd>
   <dt></dt>
   <dd style="background:white;">
     <p>
       <span class="btn btn-default challenge_answer_show initial_show">show answer</span>
-      <%= link_to '次の問題へ', challenge_results_next_path, :class => 'btn btn-default initial_show'  %>
+      <%= link_to '次の問題へ', challenge_results_next_path(id: @quiz.id), :class => 'btn btn-default initial_show'  %>
       <%= link_to '正解', challenge_results_correct_path(id: @quiz.id), method: :post, :class => 'btn btn-default initial_hide'  %>
       <%= link_to '不正解', challenge_results_uncorrect_path(id: @quiz.id), method: :post, :class => 'btn btn-default initial_hide'  %>
+      <%= my_star @quiz %>
     </p>
   </dd>
   <div class="challenge_answer initial_hide">

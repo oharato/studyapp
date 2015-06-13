@@ -3,28 +3,34 @@
   <h1>Set up</h1>
 </div>
 <%= form_tag challenge_results_save_condition_path, method: :get do %>
-  <p>キーワード：<%= search_field_tag :keyword, @keyword, class: "form-control" %></p>
-  <p>
-    タグ：<%= text_field_tag :tags, @tags, id: "quiz_tag_list", data: {role: "tagsinput"} ,class: "form-control" %>
+<dl class="dl-horizontal">
+  <dt>キーワード：</dt>
+  <dd><p><%= search_field_tag :keyword, @keyword, class: "form-control" %></p></dd>
+  <dt>タグ：</dt>
+  <dd><%= text_field_tag :tags, @tags, id: "quiz_tag_list", data: {role: "tagsinput"} ,class: "form-control" %>
     <button type="button" class="btn btn-default tags_remove_all">
       <span class="fa fa-times"></span>
     </button>
-  </p>
-  <p class="most_used_tags">
-  よく使われているタグ：
+  </dd>
+  <dt>よく使われているタグ：</dt>
+  <dd class="most_used_tags">
   <% ActsAsTaggableOn::Tag.most_used(20).each do |t| %>
     <span class="tag label label-info"><%= t.name %></span>
   <% end %>
-  </p>
+  </dd>
+  <dt></dt>
+  <dd>
   <p data-toggle="buttons">
     <label class="btn btn-default<%= ' active' if @stared %>">
       <%= check_box_tag :stared, @stared, @stared, class: "checkbox-inline" %>
       <i class="fa fa-star fa-2x" style="color:gold;"></i>
     </label>
   </p>
+  </dd>
+  <p>対象のクイズは<%= @quizzes.count %>件あります。</p>
   <p><%= submit_tag '条件を保存', name: nil, class: "btn btn-default" %></p>
+</dl>
 <% end %>
-<p>対象のクイズは<%= @quizzes.count %>件あります。</p>
 
 <%= link_to 'Start', challenge_results_start_path, class: 'btn btn-primary' %>
 
