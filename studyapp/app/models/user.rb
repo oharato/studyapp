@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   validates :nickname, presence: true, on: :update
   validates :email, email: {allow_blank: true}, on: :update
   has_many :challenge_results
-  
+
   private
   
   def set_default_nickname

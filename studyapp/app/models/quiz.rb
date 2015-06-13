@@ -4,6 +4,7 @@ class Quiz < ActiveRecord::Base
   validates :answer, presence: true
   acts_as_taggable
   has_many :challenge_results
+  has_many :stars
   
   def self.search_attributes
     [:question, :answer, :etc]

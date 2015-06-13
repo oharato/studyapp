@@ -17,11 +17,14 @@ Rails.application.routes.draw do
 
   get '/challenge_results', to: 'challenge_results#index'
   get '/challenge_results/setup', to: 'challenge_results#setup'
+  get '/challenge_results/save_condition', to: 'challenge_results#save_condition'
   get '/challenge_results/start', to: 'challenge_results#next'
   get '/challenge_results/next', to: 'challenge_results#next'
   get '/challenge_results/challenge', to: 'challenge_results#challenge'
   post '/challenge_results/correct', to: 'challenge_results#correct'
   post '/challenge_results/uncorrect', to: 'challenge_results#uncorrect'
+  
+  resources :stars, only: [:create, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

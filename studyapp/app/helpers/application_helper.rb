@@ -36,4 +36,13 @@ module ApplicationHelper
     @@markdown.render(text).html_safe
   end
 
+  def my_star(quiz)
+    res = if quiz.stars.pluck(:user_id).include?(current_user.id)
+        %Q(<i data-quiz-id="#{quiz.id}" class="star fa fa-star fa-2x" style="color:gold;"></i>)
+      else
+        %Q(<i data-quiz-id="#{quiz.id}" class="star fa fa-star-o fa-2x" style="color:gold;"></i>)
+      end
+    res.html_safe
+  end
+
 end

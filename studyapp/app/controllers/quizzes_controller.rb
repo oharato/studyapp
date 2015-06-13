@@ -5,8 +5,11 @@ class QuizzesController < ApplicationController
   # GET /quizzes.json
   def index
     tags = params[:tags].try(:split, ',')
+    stared = params[:stared]
     @quizzes = Quiz.search(params[:keyword])
       .tap{|x| break x.tagged_with(tags) if tags.present? }
+      .tap{|x| break x.joins(:stars).where(stars: {user_id: current_user.id}) if stared }
+      .preload(:stars)
       .page(params[:page]).per(20)
   end
 

@@ -12,7 +12,7 @@
 <%= form_tag quizzes_path, method: :get do %>
   <p>キーワード：<%= search_field_tag :keyword, params[:keyword], class: "form-control" %></p>
   <p>
-    タグ：<%= text_field_tag :tags, params[:tags], id: "quiz_tag_list", class: "form-control" %>
+    タグ：<%= text_field_tag :tags, params[:tags], id: "quiz_tag_list", data: {role: "tagsinput"} ,class: "form-control" %>
     <button type="button" class="btn btn-default tags_remove_all">
       <span class="fa fa-times"></span>
     </button>
@@ -23,14 +23,20 @@
     <span class="tag label label-info"><%= t.name %></span>
   <% end %>
   </p>
+  <p data-toggle="buttons">
+    <label class="btn btn-default<%= ' active' if params[:stared] %>">
+      <%= check_box_tag :stared, params[:stared], params[:stared], class: "checkbox-inline" %>
+      <i class="fa fa-star fa-2x" style="color:gold;"></i>
+    </label>
+  </p>
   <p><%= submit_tag 'search', name: nil, class: "btn btn-default" %></p>
 <% end %>
-
 <% @quizzes.order('id desc').each do |quiz| %>
 <div>
   <div class="quiz_header">
     <ul class="main-nav">
       <li>No.<%= quiz.id %></li>
+      <li><%= my_star quiz %></li>
       <li>
         tags:
         <% quiz.tag_list.each do |tag| %>
