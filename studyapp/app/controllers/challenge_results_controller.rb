@@ -33,6 +33,9 @@ class ChallengeResultsController < ApplicationController
 
   def challenge
     @quiz = Quiz.find params[:id]
+  rescue => e
+    logger.info e
+    render_404 and return
   end
 
   def correct
