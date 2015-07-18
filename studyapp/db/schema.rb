@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150612154217) do
+ActiveRecord::Schema.define(version: 20150712102409) do
 
   create_table "challenge_results", force: :cascade do |t|
     t.integer  "user_id"
@@ -25,13 +25,17 @@ ActiveRecord::Schema.define(version: 20150612154217) do
   add_index "challenge_results", ["user_id"], name: "index_challenge_results_on_user_id"
 
   create_table "quizzes", force: :cascade do |t|
-    t.text     "question",               null: false
-    t.text     "answer",                 null: false
+    t.text     "question",                              null: false
+    t.text     "answer",                                null: false
     t.text     "etc"
     t.string   "tag",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
+    t.boolean  "public",                 default: true
   end
+
+  add_index "quizzes", ["user_id"], name: "index_quizzes_on_user_id"
 
   create_table "stars", force: :cascade do |t|
     t.integer  "user_id"

@@ -49,6 +49,13 @@
     </p>
     <%= error_span(@quiz[:tag_list]) %>
   </div>
+  <div class="control-group">
+    <%= f.label :public, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :public, :class => 'form-control' %>
+    </div>
+    <%= error_span(@quiz[:public]) %>
+  </div>
 
   <p class="quiz_actions">
   <%= f.submit nil, :class => 'btn btn-primary' %>

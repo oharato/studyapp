@@ -4,15 +4,17 @@
 </div>
 
 <dl class="dl-horizontal">
+  <dt>No.</dt>
+  <dd><p><%= link_to @quiz.id, quiz_path(@quiz) %></p></dd>
   <dt><strong><%= model_class.human_attribute_name(:question) %>:</strong></dt>
   <dd><div><%= markdown @quiz.question %></div></dd>
   <dt><strong><%= model_class.human_attribute_name(:tag) %>:</strong></dt>
   <dd>
-    <div>
+    <p>
     <% @quiz.tag_list.each do |tag| %>
     <span class="label label-info"><%= tag %></span>
     <% end %>
-    </div>
+    </p>
   </dd>
   <dt></dt>
   <dd style="background:white;">
