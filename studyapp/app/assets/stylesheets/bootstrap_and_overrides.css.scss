@@ -22,6 +22,19 @@ pre {
 a.btn-primary:visited{
   color: white;
 }
-.container-fluid {
-  margin: 84px 10px 0;
+.container.main {
+  margin-top: 45px;
+}
+.search_form .form-group{
+  margin-bottom: 5px;
+}
+.bootstrap-tagsinput{
+  width: 100%;
+}
+.star-btn .btn{
+  margin: 0;
+  padding: 2px;
+}
+.star-btn .fa-star{
+  font-size: 1.5em;
 }

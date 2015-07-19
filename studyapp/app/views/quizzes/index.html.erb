@@ -2,39 +2,76 @@
 <div>
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
-<p class="quiz_actions">
-<%= page_entries_info @quizzes %>
-<span class="btn btn-default toggle_answer">答えの表示・非表示</span>
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_quiz_path,
-            :class => 'btn btn-primary' %>
-</p>
-<%= form_tag quizzes_path, method: :get do %>
-  <p>キーワード：<%= search_field_tag :keyword, params[:keyword], class: "form-control" %></p>
-  <p>
-    タグ：<%= text_field_tag :tags, params[:tags], id: "quiz_tag_list", data: {role: "tagsinput"} ,class: "form-control" %>
-    <button type="button" class="btn btn-default tags_remove_all">
-      <span class="fa fa-times"></span>
-    </button>
-  </p>
-  <p class="most_used_tags">
-  よく使われているタグ：
-  <% ActsAsTaggableOn::Tag.most_used(20).each do |t| %>
-    <span class="tag label label-info"><%= t.name %></span>
-  <% end %>
-  </p>
-  <p data-toggle="buttons">
-    <label class="btn btn-default<%= ' active' if params[:stared] %>">
-      <%= check_box_tag :stared, params[:stared], params[:stared], class: "checkbox-inline" %>
-      <i class="fa fa-star fa-2x" style="color:gold;"></i>
-    </label>
-  </p>
-  <p><%= submit_tag 'search', name: nil, class: "btn btn-default" %></p>
-<% end %>
+<div class="row">
+  <div class="quiz_actions col-sm-10 col-sm-push-2">
+    <%= page_entries_info @quizzes %>
+    <span class="btn btn-default toggle_answer">答えの表示・非表示</span>
+    <%= link_to t('.new', :default => t("helpers.links.new")),
+                new_quiz_path,
+                :class => 'btn btn-primary' %>
+  </div>
+  <div class="col-sm-2 col-sm-pull-10">
+    <span class="btn btn-info search-form">
+      Search Form
+    </span>
+  </div>
+</div>
+<div class="search-form panel panel-info">
+  <div class="panel-body">
+    <%= form_tag quizzes_path, method: :get, class: 'form-horizontal search_form' do %>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row form-group form-group-sm">
+            <label class="col-md-3 control-label">キーワード</label>
+            <div class="col-md-9">
+              <%= search_field_tag :keyword, params[:keyword], class: "form-control input-sm", placeholder: 'キーワード' %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row form-group form-group-sm">
+            <label class="col-md-4 control-label">お気に入り</label>
+            <div class="col-md-8">
+              <div data-toggle="buttons" class="star-btn">
+                <label class="btn btn-default<%= ' active' if params[:stared] %>">
+                  <%= check_box_tag :stared, params[:stared], params[:stared], class: "checkbox-inline" %>
+                  <i class="fa fa-star" style="color:gold;"></i>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row form-group form-group-sm">
+            <label class="col-md-3 control-label">タグ</label>
+            <div class="col-md-9">
+              <%= text_field_tag :tags, params[:tags], id: "quiz_tag_list", data: {role: "tagsinput"} ,class: "form-control input-sm" %>
+              <span class="fa fa-times tags_remove_all"></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row most_used_tags form-group form-group-sm">
+            <label class="col-md-4 control-label">よく使われているタグ</label>
+            <div class="col-md-8">
+            <% ActsAsTaggableOn::Tag.most_used(20).each do |t| %>
+              <span class="tag label label-info"><%= t.name %></span>
+            <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%= submit_tag 'search', name: nil, class: "btn btn-info form-control" %>
+    <% end %>
+  </div>
+</div>
+
 <% @quizzes.order('id desc').each do |quiz| %>
 <div>
-  <div class="quiz_header">
-    <ul class="main-nav">
+  <div class="row quiz_header">
+    <ul class="main-nav col-md-12">
       <li>No.<%= quiz.id %></li>
       <li><%= my_star quiz %></li>
       <li>
@@ -55,19 +92,25 @@
     </ul>
 
   </div>
-  <div class="main">
-    <section class="col-1">
-      <h2><%= model_class.human_attribute_name(:question) %></h2>
-      <div><%= markdown quiz.question %></div>
-    </section>
-    <section class="col-2">
-      <h2><%= model_class.human_attribute_name(:answer) %></h2>
-      <div><%= markdown quiz.answer %></div>
-    </section>
-    <section class="col-3">
-      <h2><%= model_class.human_attribute_name(:etc) %></h2>
-      <div><%= markdown quiz.etc %></div>
-    </section>
+  <div class="quiz-row row">
+    <div class="quiz col-md-4">
+      <section>
+        <h2><%= model_class.human_attribute_name(:question) %></h2>
+        <div><%= markdown quiz.question %></div>
+      </section>
+    </div>
+    <div class="answer col-md-4">
+      <section>
+        <h2><%= model_class.human_attribute_name(:answer) %></h2>
+        <div><%= markdown quiz.answer %></div>
+      </section>
+    </div>
+    <div class="etc col-md-4">
+      <section>
+        <h2><%= model_class.human_attribute_name(:etc) %></h2>
+        <div><%= markdown quiz.etc %></div>
+      </section>
+    </div>
   </div>
 </div>
 <hr>

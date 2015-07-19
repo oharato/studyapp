@@ -6,12 +6,16 @@ $(function() {
     $('#quiz_tag_list').tagsinput('removeAll');
   });
   $('.toggle_answer').click(function() {
-    $('section.col-2, section.col-3').toggle();
-  })
+      $('.quiz-row .quiz').toggleClass('col-md-4').toggleClass('col-md-12')
+      $('.quiz-row .answer, .quiz-row .etc').toggle();
+    });
   $('.challenge_answer_show').click(function() {
     $('.initial_show').hide();
     $('.initial_hide').show();
-  })
+  });
+  $('.search-form.btn').click(function(){
+    $('.search-form.panel').slideToggle();
+  });
   $('.star').click(function() {
     var self = $(this);
     var quiz_id = self.data('quizId');
@@ -33,6 +37,6 @@ $(function() {
       if(data === 'create') self.removeClass('fa-star-o').addClass('fa-star');
       if(data === 'destroy') self.removeClass('fa-star').addClass('fa-star-o');
     })
-  })
-  
+  });
+  $('.bs_btn').bootstrapSwitch();
 });

@@ -2,37 +2,56 @@
 <div>
   <h1>Set up</h1>
 </div>
-<%= form_tag challenge_results_save_condition_path, method: :get do %>
-<dl class="dl-horizontal">
-  <dt>キーワード：</dt>
-  <dd><p><%= search_field_tag :keyword, @keyword, class: "form-control" %></p></dd>
-  <dt>タグ：</dt>
-  <dd><%= text_field_tag :tags, @tags, id: "quiz_tag_list", data: {role: "tagsinput"} ,class: "form-control" %>
-    <button type="button" class="btn btn-default tags_remove_all">
-      <span class="fa fa-times"></span>
-    </button>
-  </dd>
-  <dt>よく使われているタグ：</dt>
-  <dd class="most_used_tags">
-  <% ActsAsTaggableOn::Tag.most_used(20).each do |t| %>
-    <span class="tag label label-info"><%= t.name %></span>
-  <% end %>
-  </dd>
-  <dt></dt>
-  <dd>
-  <p data-toggle="buttons">
-    <label class="btn btn-default<%= ' active' if @stared %>">
-      <%= check_box_tag :stared, @stared, @stared, class: "checkbox-inline" %>
-      <i class="fa fa-star fa-2x" style="color:gold;"></i>
-    </label>
-  </p>
-  </dd>
-  <p>対象のクイズは<%= @quizzes.count %>件あります。</p>
-  <p><%= submit_tag '条件を保存', name: nil, class: "btn btn-default" %></p>
-</dl>
-<% end %>
-
+<div class="search-form panel panel-info">
+  <div class="panel-body">
+    <%= form_tag challenge_results_save_condition_path, method: :get, class: 'form-horizontal search_form' do %>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row form-group form-group-sm">
+            <label class="col-md-3 control-label">キーワード</label>
+            <div class="col-md-9">
+              <%= search_field_tag :keyword, @keyword, class: "form-control input-sm", placeholder: 'キーワード' %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row form-group form-group-sm">
+            <label class="col-md-4 control-label">お気に入り</label>
+            <div class="col-md-8">
+              <div data-toggle="buttons" class="star-btn">
+                <label class="btn btn-default<%= ' active' if @stared %>">
+                  <%= check_box_tag :stared, @stared, @stared, class: "checkbox-inline" %>
+                  <i class="fa fa-star" style="color:gold;"></i>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row form-group form-group-sm">
+            <label class="col-md-3 control-label">タグ</label>
+            <div class="col-md-9">
+              <%= text_field_tag :tags, @tags, id: "quiz_tag_list", data: {role: "tagsinput"} ,class: "form-control input-sm" %>
+              <span class="fa fa-times tags_remove_all"></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row most_used_tags form-group form-group-sm">
+            <label class="col-md-4 control-label">よく使われているタグ</label>
+            <div class="col-md-8">
+            <% ActsAsTaggableOn::Tag.most_used(20).each do |t| %>
+              <span class="tag label label-info"><%= t.name %></span>
+            <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%= submit_tag '条件を保存', name: nil, class: "btn btn-info form-control" %>
+    <% end %>
+  </div>
+</div>
+<p>対象のクイズは<%= @quizzes.count %>件あります。</p>
 <%= link_to 'Start', challenge_results_start_path, class: 'btn btn-primary' %>
-
-
-

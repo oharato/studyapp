@@ -4,19 +4,25 @@
 </div>
 <% @challenge_results.order('id desc').each do |cr| %>
 <div>
-  <div class="main">
-    <section class="col-1">
-      <h2><%= 'Question' %></h2>
-      <div><%= markdown cr.quiz.question %></div>
-    </section>
-    <section class="col-2">
-      <h2><%= model_class.human_attribute_name(:correct) %></h2>
-      <div><%= cr.correct %></div>
-    </section>
-    <section class="col-3">
-      <h2><%= model_class.human_attribute_name(:created_at) %></h2>
-      <div><%= cr.created_at %></div>
-    </section>
+  <div class="quiz-row row">
+    <div class="quiz col-md-4">
+      <section>
+        <h2><%= model_class.human_attribute_name(:question) %></h2>
+        <div><%= markdown cr.quiz.question %></div>
+      </section>
+    </div>
+    <div class="quiz col-md-4">
+      <section>
+        <h2><%= model_class.human_attribute_name(:correct) %></h2>
+        <div><%= cr.correct %></div>
+      </section>
+    </div>
+    <div class="quiz col-md-4">
+      <section>
+        <h2><%= model_class.human_attribute_name(:created_at) %></h2>
+        <div><%= cr.created_at %></div>
+      </section>
+    </div>
   </div>
 </div>
 <hr>

@@ -32,7 +32,7 @@
     <% end %>
 <% end %>
 
-<div class="container-fluid">
+<div class="container main">
   <% flash.each do |key, value| %>
   <% type = case key
        when "notice" then "success"
@@ -45,7 +45,7 @@
   </div>
   <%#= content_tag(:div, value, class: "#{key}") %>
   <% end %>
-  <div class="row">
+  <div>
     <%= yield %>
   </div>
 </div>

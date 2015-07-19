@@ -3,33 +3,44 @@
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
-<dl class="dl-horizontal">
-  <dt>No.</dt>
-  <dd><p><%= link_to @quiz.id, quiz_path(@quiz) %></p></dd>
-  <dt><strong><%= model_class.human_attribute_name(:question) %>:</strong></dt>
-  <dd><div><%= markdown @quiz.question %></div></dd>
-  <dt><strong><%= model_class.human_attribute_name(:tag) %>:</strong></dt>
-  <dd>
-    <p>
-    <% @quiz.tag_list.each do |tag| %>
-    <span class="label label-info"><%= tag %></span>
-    <% end %>
-    </p>
-  </dd>
-  <dt></dt>
-  <dd style="background:white;">
-    <p>
+<div class="challenge_results">
+  <div class="row">
+    <div class="col-xs-1">No.</div>
+    <div class="col-xs-11"><%= link_to @quiz.id, quiz_path(@quiz) %></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1 question_label"><%= model_class.human_attribute_name(:question) %>:</div>
+    <div class="col-xs-11">
+      <div class="question"><%= markdown @quiz.question %></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1"><%= model_class.human_attribute_name(:tag) %>:</div>
+    <div class="col-xs-11">
+      <% @quiz.tag_list.each do |tag| %>
+      <span class="label label-info"><%= tag %></span>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-offset-1 col-xs-11">
       <span class="btn btn-default challenge_answer_show initial_show">show answer</span>
       <%= link_to '次の問題へ', challenge_results_next_path(id: @quiz.id), :class => 'btn btn-default initial_show'  %>
       <%= link_to '正解', challenge_results_correct_path(id: @quiz.id), method: :post, :class => 'btn btn-default initial_hide'  %>
       <%= link_to '不正解', challenge_results_uncorrect_path(id: @quiz.id), method: :post, :class => 'btn btn-default initial_hide'  %>
       <%= my_star @quiz %>
-    </p>
-  </dd>
-  <div class="challenge_answer initial_hide">
-    <dt><strong><%= model_class.human_attribute_name(:answer) %>:</strong></dt>
-    <dd><%= markdown @quiz.answer %></dd>
-    <dt><strong><%= model_class.human_attribute_name(:etc) %>:</strong></dt>
-    <dd><%= markdown @quiz.etc %></dd>
+    </div>
   </div>
-</dl>
+  <div class="challenge_answer initial_hide row">
+    <div class="col-xs-1 answer_label"><%= model_class.human_attribute_name(:answer) %>:</div>
+    <div class="col-xs-11">
+      <div class="answer"><%= markdown @quiz.answer %></div>
+    </div>
+  </div>
+  <div class="challenge_answer initial_hide row">
+    <div class="col-xs-1 etc_label"><%= model_class.human_attribute_name(:etc) %>:</div>
+    <div class="col-xs-11">
+      <div class="etc"><%= markdown @quiz.etc %></div>
+    </div>
+  </div>
+</div>

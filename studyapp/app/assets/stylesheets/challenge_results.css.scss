@@ -1,3 +1,16 @@
 // Place all the styles related to the ChallengeResults controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.challenge_results .row{
+  margin: 10px 0;
+}
+.challenge_results .row .question, .challenge_results .row .answer, .challenge_results .row .etc {
+  border-radius: 5px;
+  background: #F5F0CF;
+  padding: 15px;
+  margin: 10px;
+}
+.challenge_results .row .question_label, .challenge_results .row .answer_label, .challenge_results .row .etc_label {
+  padding-top: 10px;
+}
