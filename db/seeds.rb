@@ -2787,24 +2787,6 @@ INSERT INTO public.quizzes (id, question, answer, etc, tag, created_at, updated_
 INSERT INTO public.quizzes (id, question, answer, etc, tag, created_at, updated_at, user_id, public) VALUES (292, 'ques', 'ans', 'etccc', NULL, '2018-04-08 18:19:56.450231+09', '2018-04-08 18:19:56.450231+09', 1, true);
 
 
---
--- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: studyapp
---
-
-INSERT INTO public.schema_migrations (version) VALUES ('20150402140018');
-INSERT INTO public.schema_migrations (version) VALUES ('20150411090602');
-INSERT INTO public.schema_migrations (version) VALUES ('20150418072401');
-INSERT INTO public.schema_migrations (version) VALUES ('20150418072402');
-INSERT INTO public.schema_migrations (version) VALUES ('20150418072403');
-INSERT INTO public.schema_migrations (version) VALUES ('20150418072404');
-INSERT INTO public.schema_migrations (version) VALUES ('20150418072405');
-INSERT INTO public.schema_migrations (version) VALUES ('20150418090956');
-INSERT INTO public.schema_migrations (version) VALUES ('20150510042501');
-INSERT INTO public.schema_migrations (version) VALUES ('20150510070827');
-INSERT INTO public.schema_migrations (version) VALUES ('20150612154217');
-INSERT INTO public.schema_migrations (version) VALUES ('20150712102409');
-
-
 
 --
 -- Data for Name: taggings; Type: TABLE DATA; Schema: public; Owner: studyapp
