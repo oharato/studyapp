@@ -3767,6 +3767,12 @@ INSERT INTO public.stars (id, user_id, quiz_id, created_at, updated_at) VALUES (
 INSERT INTO public.stars (id, user_id, quiz_id, created_at, updated_at) VALUES (63, 1, 186, '2015-07-10 03:37:20.574026+09', '2015-07-10 03:37:20.574026+09');
 INSERT INTO public.stars (id, user_id, quiz_id, created_at, updated_at) VALUES (64, 1, 187, '2015-07-10 03:37:48.836174+09', '2015-07-10 03:37:48.836174+09');
 
+select setval('challenge_results_id_seq', (select max(id) from challenge_results));
+select setval('quizzes_id_seq', (select max(id) from quizzes));
+select setval('stars_id_seq', (select max(id) from stars));
+select setval('taggings_id_seq', (select max(id) from taggings));
+select setval('tags_id_seq', (select max(id) from tags));
+select setval('users_id_seq', (select max(id) from users));
 
 EOSS
 
