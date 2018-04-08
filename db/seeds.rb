@@ -1,4 +1,4 @@
-statement = <<~'EOS'
+statement = <<~'EOSS'
 
 --
 -- Data for Name: challenge_results; Type: TABLE DATA; Schema: public; Owner: studyapp
@@ -2985,23 +2985,6 @@ INSERT INTO public.quizzes VALUES (291, 'Integrationテストで、リクエス�
 INSERT INTO public.quizzes VALUES (292, 'ques', 'ans', 'etccc', NULL, '2018-04-08 18:19:56.450231+09', '2018-04-08 18:19:56.450231+09', 1, true);
 
 
---
--- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: studyapp
---
-
-INSERT INTO public.schema_migrations VALUES ('20150402140018');
-INSERT INTO public.schema_migrations VALUES ('20150411090602');
-INSERT INTO public.schema_migrations VALUES ('20150418072401');
-INSERT INTO public.schema_migrations VALUES ('20150418072402');
-INSERT INTO public.schema_migrations VALUES ('20150418072403');
-INSERT INTO public.schema_migrations VALUES ('20150418072404');
-INSERT INTO public.schema_migrations VALUES ('20150418072405');
-INSERT INTO public.schema_migrations VALUES ('20150418090956');
-INSERT INTO public.schema_migrations VALUES ('20150510042501');
-INSERT INTO public.schema_migrations VALUES ('20150510070827');
-INSERT INTO public.schema_migrations VALUES ('20150612154217');
-INSERT INTO public.schema_migrations VALUES ('20150712102409');
-
 
 --
 -- Data for Name: stars; Type: TABLE DATA; Schema: public; Owner: studyapp
@@ -3783,7 +3766,7 @@ INSERT INTO public.users VALUES (1, 'twitter', '2454509502', '2015-04-11 11:43:1
 INSERT INTO public.users VALUES (2, 'twitter', '101234414', '2015-08-12 06:24:55.354953+09', '2015-08-12 06:24:55.354953+09', 'no_name', NULL);
 
 
-EOS
+EOSS
 
 connection = ActiveRecord::Base.connection 
 ActiveRecord::Base.transaction do
