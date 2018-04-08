@@ -1,4 +1,341 @@
-statement = <<~'EOS'
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 10.3
+-- Dumped by pg_dump version 10.3
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: studyapp
+--
+
+CREATE TABLE public.ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.ar_internal_metadata OWNER TO studyapp;
+
+--
+-- Name: challenge_results; Type: TABLE; Schema: public; Owner: studyapp
+--
+
+CREATE TABLE public.challenge_results (
+    id integer NOT NULL,
+    user_id bigint,
+    quiz_id bigint,
+    correct boolean,
+    created_at timestamp with time zone,
+    updated_at timestamp with time zone
+);
+
+
+ALTER TABLE public.challenge_results OWNER TO studyapp;
+
+--
+-- Name: challenge_results_id_seq; Type: SEQUENCE; Schema: public; Owner: studyapp
+--
+
+CREATE SEQUENCE public.challenge_results_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.challenge_results_id_seq OWNER TO studyapp;
+
+--
+-- Name: challenge_results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studyapp
+--
+
+ALTER SEQUENCE public.challenge_results_id_seq OWNED BY public.challenge_results.id;
+
+
+--
+-- Name: quizzes; Type: TABLE; Schema: public; Owner: studyapp
+--
+
+CREATE TABLE public.quizzes (
+    id integer NOT NULL,
+    question text,
+    answer text,
+    etc text,
+    tag text,
+    created_at timestamp with time zone,
+    updated_at timestamp with time zone,
+    user_id bigint,
+    public boolean DEFAULT true
+);
+
+
+ALTER TABLE public.quizzes OWNER TO studyapp;
+
+--
+-- Name: quizzes_id_seq; Type: SEQUENCE; Schema: public; Owner: studyapp
+--
+
+CREATE SEQUENCE public.quizzes_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.quizzes_id_seq OWNER TO studyapp;
+
+--
+-- Name: quizzes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studyapp
+--
+
+ALTER SEQUENCE public.quizzes_id_seq OWNED BY public.quizzes.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: studyapp
+--
+
+CREATE TABLE public.schema_migrations (
+    version text
+);
+
+
+ALTER TABLE public.schema_migrations OWNER TO studyapp;
+
+--
+-- Name: stars; Type: TABLE; Schema: public; Owner: studyapp
+--
+
+CREATE TABLE public.stars (
+    id integer NOT NULL,
+    user_id bigint,
+    quiz_id bigint,
+    created_at timestamp with time zone,
+    updated_at timestamp with time zone
+);
+
+
+ALTER TABLE public.stars OWNER TO studyapp;
+
+--
+-- Name: stars_id_seq; Type: SEQUENCE; Schema: public; Owner: studyapp
+--
+
+CREATE SEQUENCE public.stars_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.stars_id_seq OWNER TO studyapp;
+
+--
+-- Name: stars_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studyapp
+--
+
+ALTER SEQUENCE public.stars_id_seq OWNED BY public.stars.id;
+
+
+--
+-- Name: taggings; Type: TABLE; Schema: public; Owner: studyapp
+--
+
+CREATE TABLE public.taggings (
+    id integer NOT NULL,
+    tag_id bigint,
+    taggable_id bigint,
+    taggable_type text,
+    tagger_id bigint,
+    tagger_type text,
+    context text,
+    created_at timestamp with time zone
+);
+
+
+ALTER TABLE public.taggings OWNER TO studyapp;
+
+--
+-- Name: taggings_id_seq; Type: SEQUENCE; Schema: public; Owner: studyapp
+--
+
+CREATE SEQUENCE public.taggings_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.taggings_id_seq OWNER TO studyapp;
+
+--
+-- Name: taggings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studyapp
+--
+
+ALTER SEQUENCE public.taggings_id_seq OWNED BY public.taggings.id;
+
+
+--
+-- Name: tags; Type: TABLE; Schema: public; Owner: studyapp
+--
+
+CREATE TABLE public.tags (
+    id integer NOT NULL,
+    name text,
+    taggings_count bigint DEFAULT '0'::bigint
+);
+
+
+ALTER TABLE public.tags OWNER TO studyapp;
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE; Schema: public; Owner: studyapp
+--
+
+CREATE SEQUENCE public.tags_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.tags_id_seq OWNER TO studyapp;
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studyapp
+--
+
+ALTER SEQUENCE public.tags_id_seq OWNED BY public.tags.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: studyapp
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    provider text,
+    uid text,
+    created_at timestamp with time zone,
+    updated_at timestamp with time zone,
+    nickname text,
+    email text
+);
+
+
+ALTER TABLE public.users OWNER TO studyapp;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: studyapp
+--
+
+CREATE SEQUENCE public.users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO studyapp;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: studyapp
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: challenge_results id; Type: DEFAULT; Schema: public; Owner: studyapp
+--
+
+ALTER TABLE ONLY public.challenge_results ALTER COLUMN id SET DEFAULT nextval('public.challenge_results_id_seq'::regclass);
+
+
+--
+-- Name: quizzes id; Type: DEFAULT; Schema: public; Owner: studyapp
+--
+
+ALTER TABLE ONLY public.quizzes ALTER COLUMN id SET DEFAULT nextval('public.quizzes_id_seq'::regclass);
+
+
+--
+-- Name: stars id; Type: DEFAULT; Schema: public; Owner: studyapp
+--
+
+ALTER TABLE ONLY public.stars ALTER COLUMN id SET DEFAULT nextval('public.stars_id_seq'::regclass);
+
+
+--
+-- Name: taggings id; Type: DEFAULT; Schema: public; Owner: studyapp
+--
+
+ALTER TABLE ONLY public.taggings ALTER COLUMN id SET DEFAULT nextval('public.taggings_id_seq'::regclass);
+
+
+--
+-- Name: tags id; Type: DEFAULT; Schema: public; Owner: studyapp
+--
+
+ALTER TABLE ONLY public.tags ALTER COLUMN id SET DEFAULT nextval('public.tags_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: studyapp
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Data for Name: ar_internal_metadata; Type: TABLE DATA; Schema: public; Owner: studyapp
+--
+
+INSERT INTO public.ar_internal_metadata VALUES ('environment', 'development', '2018-04-07 14:39:26.199262', '2018-04-07 14:39:26.199262');
+
 
 --
 -- Data for Name: challenge_results; Type: TABLE DATA; Schema: public; Owner: studyapp
@@ -3783,9 +4120,175 @@ INSERT INTO public.users VALUES (1, 'twitter', '2454509502', '2015-04-11 11:43:1
 INSERT INTO public.users VALUES (2, 'twitter', '101234414', '2015-08-12 06:24:55.354953+09', '2015-08-12 06:24:55.354953+09', 'no_name', NULL);
 
 
-EOS
+--
+-- Name: challenge_results_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studyapp
+--
 
-connection = ActiveRecord::Base.connection 
-ActiveRecord::Base.transaction do
-  connection.execute(statement)
-end
+SELECT pg_catalog.setval('public.challenge_results_id_seq', 195, true);
+
+
+--
+-- Name: quizzes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studyapp
+--
+
+SELECT pg_catalog.setval('public.quizzes_id_seq', 292, true);
+
+
+--
+-- Name: stars_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studyapp
+--
+
+SELECT pg_catalog.setval('public.stars_id_seq', 64, true);
+
+
+--
+-- Name: taggings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studyapp
+--
+
+SELECT pg_catalog.setval('public.taggings_id_seq', 675, true);
+
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studyapp
+--
+
+SELECT pg_catalog.setval('public.tags_id_seq', 18, true);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: studyapp
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 2, true);
+
+
+--
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: studyapp
+--
+
+ALTER TABLE ONLY public.ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: quizzes idx_16889_quizzes_pkey; Type: CONSTRAINT; Schema: public; Owner: studyapp
+--
+
+ALTER TABLE ONLY public.quizzes
+    ADD CONSTRAINT idx_16889_quizzes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users idx_16896_users_pkey; Type: CONSTRAINT; Schema: public; Owner: studyapp
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT idx_16896_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tags idx_16902_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: studyapp
+--
+
+ALTER TABLE ONLY public.tags
+    ADD CONSTRAINT idx_16902_tags_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: taggings idx_16909_taggings_pkey; Type: CONSTRAINT; Schema: public; Owner: studyapp
+--
+
+ALTER TABLE ONLY public.taggings
+    ADD CONSTRAINT idx_16909_taggings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: challenge_results idx_16915_challenge_results_pkey; Type: CONSTRAINT; Schema: public; Owner: studyapp
+--
+
+ALTER TABLE ONLY public.challenge_results
+    ADD CONSTRAINT idx_16915_challenge_results_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: stars idx_16918_stars_pkey; Type: CONSTRAINT; Schema: public; Owner: studyapp
+--
+
+ALTER TABLE ONLY public.stars
+    ADD CONSTRAINT idx_16918_stars_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: idx_16883_unique_schema_migrations; Type: INDEX; Schema: public; Owner: studyapp
+--
+
+CREATE UNIQUE INDEX idx_16883_unique_schema_migrations ON public.schema_migrations USING btree (version);
+
+
+--
+-- Name: idx_16889_index_quizzes_on_user_id; Type: INDEX; Schema: public; Owner: studyapp
+--
+
+CREATE INDEX idx_16889_index_quizzes_on_user_id ON public.quizzes USING btree (user_id);
+
+
+--
+-- Name: idx_16896_index_users_on_provider_and_uid; Type: INDEX; Schema: public; Owner: studyapp
+--
+
+CREATE UNIQUE INDEX idx_16896_index_users_on_provider_and_uid ON public.users USING btree (provider, uid);
+
+
+--
+-- Name: idx_16902_index_tags_on_name; Type: INDEX; Schema: public; Owner: studyapp
+--
+
+CREATE UNIQUE INDEX idx_16902_index_tags_on_name ON public.tags USING btree (name);
+
+
+--
+-- Name: idx_16909_index_taggings_on_taggable_id_and_taggable_type_and_c; Type: INDEX; Schema: public; Owner: studyapp
+--
+
+CREATE INDEX idx_16909_index_taggings_on_taggable_id_and_taggable_type_and_c ON public.taggings USING btree (taggable_id, taggable_type, context);
+
+
+--
+-- Name: idx_16909_taggings_idx; Type: INDEX; Schema: public; Owner: studyapp
+--
+
+CREATE UNIQUE INDEX idx_16909_taggings_idx ON public.taggings USING btree (tag_id, taggable_id, taggable_type, context, tagger_id, tagger_type);
+
+
+--
+-- Name: idx_16915_index_challenge_results_on_quiz_id; Type: INDEX; Schema: public; Owner: studyapp
+--
+
+CREATE INDEX idx_16915_index_challenge_results_on_quiz_id ON public.challenge_results USING btree (quiz_id);
+
+
+--
+-- Name: idx_16915_index_challenge_results_on_user_id; Type: INDEX; Schema: public; Owner: studyapp
+--
+
+CREATE INDEX idx_16915_index_challenge_results_on_user_id ON public.challenge_results USING btree (user_id);
+
+
+--
+-- Name: idx_16918_index_stars_on_quiz_id; Type: INDEX; Schema: public; Owner: studyapp
+--
+
+CREATE INDEX idx_16918_index_stars_on_quiz_id ON public.stars USING btree (quiz_id);
+
+
+--
+-- Name: idx_16918_index_stars_on_user_id; Type: INDEX; Schema: public; Owner: studyapp
+--
+
+CREATE INDEX idx_16918_index_stars_on_user_id ON public.stars USING btree (user_id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
